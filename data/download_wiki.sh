@@ -1,0 +1,1 @@
+wget https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/wiki1m.txt
