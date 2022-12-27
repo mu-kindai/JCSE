@@ -1,0 +1,1 @@
+CharacterGeneratorクラスを継承してAvaterGeneratorクラスを作成したところ、AvaterGeneratorからは可視でないためオーバーライドできないと表示されています。どうすれば解決できますか？

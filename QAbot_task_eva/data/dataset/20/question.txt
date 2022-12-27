@@ -1,0 +1,1 @@
+curl -v –c cookie.txt –d "name=test" http://localhost:8080/isp2/project/simplechat/startを実行すると「302 Found」ではなく「ERROR 405」が出力されます，エラーの原因がわかりません。
