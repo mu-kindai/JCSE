@@ -1,0 +1,16 @@
+python train.py \
+    --model_name_or_path /home/chen/SimCSE/my-sup-simcse-bert-large-hard_neg0-batch-512-top6-5epochs-qa \
+    --train_file /home/chen/SimCSE/data/nli_for_simcse.csv \
+    --output_dir qa_transfer_model/my-sup-simcse-bert-large-hard_neg1-batch-512-qa-top6plus-nli\
+    --num_train_epochs 3\
+    --per_device_train_batch_size 64\
+    --gradient_accumulation_steps 8\
+    --learning_rate 1e-5 \
+    --max_seq_length 32 \
+    --save_strategy steps \
+    --save_steps 125 \
+    --pooler_type cls \
+    --overwrite_output_dir \
+    --hard_negative_weight 1 \
+    --temp 0.05 \
+    --do_train \
