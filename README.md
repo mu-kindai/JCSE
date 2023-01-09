@@ -52,5 +52,51 @@ Wikipedia data and JSNLI data for contrastive learning can be downloaded from [h
 wget https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/wiki1m.txt
 wget https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/nli_for_simcse.csv 
 ```
+The target domain corpus used in our paper can be downloaded from [here](/data/clinic_corpus.txt) and [here](/data/QAbot_corpus.txt).
+
+### Data generator fine-tune and generate contradictory data
+You can finetune the data generator using the code referring [this one](T5_denoising_training_clinic_domain.py). 
+
+You can generate contradictory data referring the following code from [here](/data_generation_for_unsup.ipynb) and [here](/gen_forsup_contra.py).
+
+You can download and directly use the synthetic data in target domain for contrastive learning from the following list.
+|Synthetic Data|
+|--------------|
+|[clinic_domain_top4](https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/clinic_shuffle_for_simcse_top4.csv)|
+|[clinic_domain_top5](https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/clinic_shuffle_for_simcse_top5.csv)|
+|[clinic_domain_top6](https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/clinic_shuffle_for_simcse_top6.csv)|
+|[education_domain_top4](https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/qa_shuffle_for_simcse_top4.csv)|
+|[education_domain_top5](https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/qa_shuffle_for_simcse_top5.csv)|
+|[education_domain_top6](https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/qa_shuffle_for_simcse_top6.csv)|
+
+### Training
+Run `train.py`.
+```
+python train.py \
+    --model_name_or_path <your_model_dir> \
+    --train_file <data_dir> \
+    --output_dir <model_output_dir>\
+    --num_train_epochs <training_epoch> \
+    --per_device_train_batch_size 512 \
+    --gradient_accumulation_steps 1\
+    --learning_rate 1e-5 \
+    --max_seq_length 32 \
+    --save_strategy steps \
+    --save_steps 125 \
+    --pooler_type cls \
+    --mlp_only_train \
+    --overwrite_output_dir \
+    --temp 0.05 \
+    --do_train \
+```
+Arguments used to train our models:
+| Method | Arguments |
+| ------ | --------- |
+| [MU-Kindai/JCSE-clinic-stage1-base](https://huggingface.co/MU-Kindai/JCSE-clinic-stage1-base) | `--model_name_or_path cl-tohoku/bert-base-japanese --train_file clinic_shuffle_for_simcse_top4.csv  --num_train_epochs |
+
+
+
+
+
 
 
