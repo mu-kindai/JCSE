@@ -70,7 +70,8 @@ You can download and directly use the synthetic data in target domain for contra
 |[education_domain_top6](https://huggingface.co/datasets/MU-Kindai/datasets-for-JCSE/blob/main/qa_shuffle_for_simcse_top6.csv)|
 
 ### Training
-Run `train.py`.
+Run `train.py`. You can define different hyperparameters in your own way.
+In our experiments, we use different save strategies like save steps or save epochs to save multiple checkpoints and find the best one among saved ones.
 ```
 python train.py \
     --model_name_or_path <your_model_dir> \
@@ -86,17 +87,39 @@ python train.py \
     --pooler_type cls \
     --mlp_only_train \
     --overwrite_output_dir \
+    --hard_negative_weight 1 \
     --temp 0.05 \
     --do_train \
 ```
 Arguments used to train our models:
 | Method | Arguments |
 | ------ | --------- |
-| [MU-Kindai/JCSE-clinic-stage1-base](https://huggingface.co/MU-Kindai/JCSE-clinic-stage1-base) | `--model_name_or_path cl-tohoku/bert-base-japanese --train_file clinic_shuffle_for_simcse_top4.csv  --num_train_epochs |
+| [MU-Kindai/JCSE-clinic-stage1-base](https://huggingface.co/MU-Kindai/JCSE-clinic-stage1-base) | `--train_file clinic_shuffle_for_simcse_top4.csv --learning_rate 5e-5 --hard_negative_weight 0`|
+| [MU-Kindai/JCSE-clinic-final-base](https://huggingface.co/MU-Kindai/JCSE-clinic-final-base) | `--train_file nli_for_simcse.csv --learning_rate 5e-5 --hard_negative_weight 1`|
+| [MU-Kindai/JCSE-clinic-stage1-large](https://huggingface.co/MU-Kindai/JCSE-clinic-stage1-large) | `--train_file clinic_shuffle_for_simcse_top5.csv --learning_rate 1e-5 --hard_negative_weight 0`|
+| [MU-Kindai/JCSE-clinic-final-large](https://huggingface.co/MU-Kindai/JCSE-clinic-final-large) | `--train_file nli_for_simcse.csv --learning_rate 1e-5 --hard_negative_weight 1`|
+| [MU-Kindai/JCSE-edu-stage1-base](https://huggingface.co/MU-Kindai/JCSE-edu-stage1-base) | `--train_file qa_shuffle_for_simcse_top4.csv --learning_rate 5e-5 --hard_negative_weight 0`|
+| [MU-Kindai/JCSE-edu-final-base](https://huggingface.co/MU-Kindai/JCSE-edu-final-base) | `--train_file nli_for_simcse.csv --learning_rate 5e-5 --hard_negative_weight 1`|
+| [MU-Kindai/JCSE-edu-stage1-large](https://huggingface.co/MU-Kindai/JCSE-edu-stage1-large) | `--train_file qa_shuffle_for_simcse_top6.csv --learning_rate 1e-5 --hard_negative_weight 0`|
+| [MU-Kindai/JCSE-edu-final-large](https://huggingface.co/MU-Kindai/JCSE-edu-final-large) | `--train_file nli_for_simcse.csv --learning_rate 1e-5 --hard_negative_weight 1`|
 
+### Evaluation
+For the clinic domain STS tasks in our paper, you can evaluate the embedding models following the commands below:
+```
+python evaluation.py \
+    --model_name_or_path <your_model_dir> \
+    --pooler  avg \
+    --task_set transfer \
+    --mode test
+```
 
+For the education domain information retrieval tasks in our paper, you can evaluate the embedding models following the commands below:
+```
+cd QAbot_task_eva
+python main.py\
+    --model_name_or_path <your_model_dir>
+```
 
-
-
-
+## Relevant Content Words
+For the relevant content words experiments in our paper, you can check and refer the codes and examples from [here](/relevant_content_words).
 
