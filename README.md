@@ -1,5 +1,5 @@
 # Introduction
-This repository contains the data, code and models for our paper JCSE: Contrastive Learning of Japanese Sentence Embeddings and Its Applications. It is built upon Pytorch and Huggingface.
+This repository contains the data, code and models for our paper [JCSE: Contrastive Learning of Japanese Sentence Embeddings and Its Applications](https://arxiv.org/abs/2301.08193). It is built upon Pytorch and Huggingface.
 
 ## Overview
 We propose a novel Japanese sentence representation framework, JCSE for domain adaptation(derived from "Contrastive learning of Sentence Embeddings for Japanese"), that creates training data by generating sentences and synthesizing them with sentences available in a target domain. Specifically, a pre-trained data generator is finetuned to a target domain using our collected corpus. It is then used to generate contradictory sentence pairs that are used in contrastive learning with a two-stage training recipe for adapting a Japanese language model to a specific task in the target domain.
