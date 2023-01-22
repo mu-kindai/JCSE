@@ -123,3 +123,13 @@ python main.py\
 ## Relevant Content Words
 For the relevant content words experiments in our paper, you can check and refer the codes and examples from [here](/relevant_content_words).
 
+# Citation
+If this work is helpful, please cite the following paper:
+```
+@article{Chen2023JSCE,
+    author={Chen, Zihao and Handa,  Hisashi and Shirahama, Kimiaki}.
+    title={JCSE: Contrastive Learning of Japanese Sentence Embeddings and Its Applications},
+    journal={arXiv e-prints 10.48550/arXiv.2301.08193},
+    year={2023},
+}
+```
